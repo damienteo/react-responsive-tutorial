@@ -4,7 +4,10 @@ import FooterMenu from "./components/FooterMenu";
 import Content from "./components/Content";
 
 class App extends Component {
-  state = { windowWidth: 0, windowHeight: 0 };
+  state = {
+    windowWidth: 0,
+    windowHeight: 0
+  };
 
   componentDidMount() {
     this.updateDimensions();
@@ -23,11 +26,14 @@ class App extends Component {
   };
 
   render() {
+    const { windowWidth } = this.state;
+
     const styles = {
       white: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       black: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
       topBarHeight: 40,
-      footerMenuHeight: 50
+      footerMenuHeight: 50,
+      showFooterMenuText: windowWidth > 500
     };
 
     const menuItems = [
