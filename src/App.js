@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TopBar from "./components/TopBar";
 import FooterMenu from "./components/FooterMenu";
 import Content from "./components/Content";
+import Sidebar from "./components/Sidebar";
 
 class App extends Component {
   state = {
@@ -28,11 +29,15 @@ class App extends Component {
   render() {
     const { windowWidth } = this.state;
 
+    const sidebarCollapsed = windowWidth < 1100;
+
     const styles = {
       white: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       black: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
       topBarHeight: 40,
       footerMenuHeight: 50,
+      sidebarCollapsed,
+      showSidebar: windowWidth > 768,
       showFooterMenuText: windowWidth > 500
     };
 
@@ -44,6 +49,11 @@ class App extends Component {
       { icon: `😛`, text: "Item 5" }
     ];
 
+    if (styles.showSidebar) {
+      menuItems.push({ icon: `😺️`, text: "Profile" });
+      menuItems.push({ icon: `⚙`, text: "Settings" });
+    }
+
     return (
       <div
         style={{
@@ -52,9 +62,16 @@ class App extends Component {
           position: "relative"
         }}
       >
-        <TopBar styles={styles} />
+        {styles.showSidebar ? (
+          <Sidebar menuItems={menuItems} styles={styles} />
+        ) : (
+          <TopBar styles={styles} />
+        )}
+
         <Content styles={styles} />
-        <FooterMenu menuItems={menuItems} styles={styles} />
+        {!styles.showSidebar && (
+          <FooterMenu menuItems={menuItems} styles={styles} />
+        )}
       </div>
     );
   }
