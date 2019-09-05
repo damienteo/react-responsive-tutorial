@@ -38,7 +38,8 @@ class App extends Component {
       footerMenuHeight: 50,
       sidebarCollapsed,
       showSidebar: windowWidth > 768,
-      showFooterMenuText: windowWidth > 500
+      showFooterMenuText: windowWidth > 500,
+      sidebarWidth: sidebarCollapsed ? 50 : 150
     };
 
     const menuItems = [
